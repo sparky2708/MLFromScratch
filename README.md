@@ -1,2 +1,2 @@
-# DataScience
-Data-Science Projects and Kaggle-Competitions
+# Data Science
+Personal Projects and Kaggle Competitions
