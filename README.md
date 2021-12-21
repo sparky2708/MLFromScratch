@@ -1,2 +1,2 @@
 # Data Science
-Personal Projects and Kaggle Competitions
+Projects, Implementations from Scratch etc.
