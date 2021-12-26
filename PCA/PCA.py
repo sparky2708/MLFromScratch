@@ -9,8 +9,8 @@ class PCA:
         self.n_samples = X.shape[0]
         self.n_components = n_components
         
-        # mean center the original data-matrix
-        self.A = self.mean_center(X)
+        # standardize
+        self.A = self.standardize_data(X)
         
         # calculate covariance matrix
         covariance_matrix = self.get_covariance_matrix()
@@ -22,13 +22,14 @@ class PCA:
         projected_matrix = self.project_matrix(eigenvectors)
         return projected_matrix
 
-    def mean_center(self, X):
-        # calculate the mean columnwise and substract from data
-        return X - np.mean(X, axis=0)
+    def standardize_data(self, X):
+        numerator = X - np.mean(X, axis=0)
+        denominator = np.std(X, axis=0)
+        return numerator / denominator
     
-    def get_covariance_matrix(self):
-        # calculate covariance matrix with mean-centered matrix A
-        C = np.dot(self.A.T, self.A) / self.n_samples
+    def get_covariance_matrix(self, ddof=0):
+        # calculate covariance matrix with standardized matrix A
+        C = np.dot(self.A.T, self.A) / (self.n_samples-ddof)
         return C
 
     def get_eigenvectors(self, C):
